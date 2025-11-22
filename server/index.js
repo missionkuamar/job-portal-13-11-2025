@@ -1,26 +1,41 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
+import express from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./utils/db.js";
+import userRoute from "./routes/user.route.js";
+import companyRoute from "./routes/company.route.js";
+import jobRoute from "./routes/job.route.js";
+import applicationRoute from "./routes/application.route.js";
+import path from "path";
+dotenv.config({});
+
 const app = express();
-const port = 5000;
 
-
-// Middleware setup
-const corsOptions = {
-  origin: 'https://job-portal-13-11-2025.onrender.com',  // React app is assumed to run on this port
-  methods: 'GET, POST, PUT, DELETE',  // Allowed HTTP methods
-  // allowedHeaders: 'Content-Type, Authorization',  // Allowed headers
-};
-
-app.use(cors(corsOptions));  // Apply CORS configuration
+// middleware
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
+const corsOptions = {
+  origin: process.env.ORIGIN || 'http://localhost:5173' ,  // React app is assumed to run on this port
+  methods: 'GET, POST, PUT, DELETE',
+    credentials:true
+}
 
+app.use(cors(corsOptions));
+
+const PORT = process.env.PORT || 3000;
+
+
+// api's
+app.use("/api/v1/user", userRoute);
+app.use("/api/v1/company", companyRoute);
+app.use("/api/v1/job", jobRoute);
+app.use("/api/v1/application", applicationRoute);
 // Define the path to your client build folder
 const _dirname = path.resolve();
 
-// API Routes
-const apiRoute = require('./routes/api');
-app.use('/api', apiRoute);  // This should come first to avoid being caught by the wildcard route
+
 
 // Serve static files from the 'client/dist' folder
 app.use(express.static(path.join(_dirname, 'client', 'dist')));
@@ -30,12 +45,7 @@ app.use((req, res, next) => {
   res.sendFile(path.join(_dirname, 'client', 'dist', 'index.html'));
 });
 
-// // Handle React routing (this fixes your crash)
-// app.use((req, res) => {
-//   res.sendFile(path.join(_dirname, 'client', 'dist', 'index.html'));
-// });
-
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+app.listen(PORT,()=>{
+    connectDB();
+    console.log(`Server running at port ${PORT}`);
+})
