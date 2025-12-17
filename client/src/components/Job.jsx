@@ -45,7 +45,7 @@ export const Job = ({ job }) => {
       <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 my-4">
         <Avatar className="w-14 h-14 flex-shrink-0">
           <AvatarImage
-            src={job?.company?.logo || "https://via.placeholder.com/150"}
+            src={job?.company?.logo || "https://placehold.co/150x150"}
             alt={job?.company?.name || "Company Logo"}
             className="object-cover w-full h-full rounded-full"
           />

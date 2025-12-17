@@ -132,7 +132,7 @@ export const Navbar = () => {
                   <Button
                     variant="ghost"
                     onClick={logoutHandler}
-                    className="w-full flex items-center justify-start gap-2 text-red-500 hover:text-red-600"
+                    className="w-full flex items-center justify-start gap-2 text-red-500 hover:text-red-600 cursor-pointer"
                   >
                     <LogOut size={18} />
                     <span>Logout</span>

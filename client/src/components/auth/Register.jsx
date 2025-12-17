@@ -203,7 +203,7 @@ const { loading } = useSelector(store => store.auth);
             {
               loading ? <Button className="w-full my-4"> <Loader2 className="mr-2 h-4 w-4 animate-spin" /></Button> : <Button
               type="submit"
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white cursor-pointer"
             >
               Sign Up
             </Button>

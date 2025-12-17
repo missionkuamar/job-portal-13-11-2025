@@ -16,7 +16,9 @@ export const Jobs = () => {
       <div className="flex flex-1 max-w-7xl mx-auto mt-5 gap-5 px-2 sm:flex sm:flex-row">
         {/* Filter Sidebar */}
         <div className="w-full sm:w-64 sm:flex flex-shrink-0">
-          <FilterCard />
+         {
+          alljobs.length > 0 && <FilterCard />
+         }
         </div>
 
         {/* Jobs Grid */}
